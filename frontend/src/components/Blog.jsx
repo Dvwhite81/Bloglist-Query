@@ -10,6 +10,10 @@ const Blog = (props) => {
     const likedBlog = { ...props.blog, likes }
     await blogService.update(likedBlog.id, likedBlog)
     setBlogLikes(blogLikes + 1)
+    props.setNotification({
+      message: `Added like to: ${likedBlog.title}!`,
+      class: 'success'
+    })
     props.sortBlogs()
   }
 
@@ -17,18 +21,17 @@ const Blog = (props) => {
     if (window.confirm(`Remove ${blog.title}?`)) {
       try {
         await blogService.remove(blog.id, props.user.token)
-        props.setSuccessMessage(`Successfully removed ${blog.title}!`)
-        setTimeout(() => {
-          props.setSuccessMessage(null)
-        }, 3000)
+        props.setNotification({
+          message: `Successfully removed ${blog.title}!`,
+          class: 'success'
+        })
         props.sortBlogs()
         props.removeBlog(blog)
-      } catch(exception) {
-        props.setErrorMessage('There was a problem adding your blog. Try logging out and back in')
-        setTimeout(() => {
-          props.setErrorMessage(null)
-        }, 3000)
-
+      } catch(error) {
+        props.setNotification({
+          message: error.message,
+          class: 'error'
+        })
       }
     }
   }

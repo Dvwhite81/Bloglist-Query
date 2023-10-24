@@ -1,12 +1,15 @@
-const Notification = ({ message, type }) => {
-  if (message === null) {
-    return null;
+import { useNotifications } from '../NotificationContext'
+
+const Notification = () => {
+  const { notification } = useNotifications()
+  if (notification === null) {
+    return null
   }
   return (
     <div id="myModal">
-      <div className={type}>{message}</div>
+      <div className={notification.class}>{notification.message}</div>
     </div>
-  );
-};
+  )
+}
 
-export default Notification;
+export default Notification

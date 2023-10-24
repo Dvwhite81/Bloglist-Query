@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Blog from './Blog'
 
-const AllBlogs = ({ blogs, user, setSuccessMessage, setErrorMessage }) => {
+const AllBlogs = ({ blogs, user, setNotification }) => {
   const [blogsToShow, setBlogsToShow] = useState([])
 
   const sortBlogs = async () => {
@@ -26,7 +26,7 @@ const AllBlogs = ({ blogs, user, setSuccessMessage, setErrorMessage }) => {
   return (
     <>
       {blogsToShow.map((blog) => (
-        <Blog key={blog.id} blog={blog} user={user} blogs={blogsToShow} sortBlogs={sortBlogs} removeBlog={removeBlog} setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} />
+        <Blog key={blog.id} blog={blog} user={user} blogs={blogsToShow} sortBlogs={sortBlogs} removeBlog={removeBlog} setNotification={setNotification} />
       ))}
     </>
   )
